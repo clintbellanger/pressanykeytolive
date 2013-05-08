@@ -19,9 +19,7 @@ heartbeat.cursor_x = 220;
 heartbeat.offset_x = 0;
 heartbeat.offset_y = 0;
 heartbeat.shake_timer = 0;
-heartbeat.success = false;
-heartbeat.success_this_pass
-
+heartbeat.beat_timer = 0;
 
 function heartbeat_init() {
   heartbeat.img.src = "images/heart.png";
@@ -46,7 +44,7 @@ function heartbeat_logic() {
 	
 	// if the cursor overlaps the heart AT ALL, success
 	if (heartbeat.cursor_x < 120 && heartbeat.cursor_x > 80) {
-	  heartbeat.success = true;
+	  heartbeat.beat_timer = 5;
 	}
     // otherwise
     else {
@@ -64,6 +62,11 @@ function heartbeat_logic() {
     heartbeat.offset_x = 0;
 	heartbeat.offset_y = 0;
   }
+  
+  // handle beat animation
+  if (heartbeat.beat_timer > 0) {
+    heartbeat.beat_timer --;
+  }
 }
 
 function heartbeat_render() {
@@ -73,7 +76,7 @@ function heartbeat_render() {
   ctx.fillRect(100*SCALE,200*SCALE,120*SCALE,40*SCALE);
   
   // show heart
-  if (heartbeat.success)
+  if (heartbeat.beat_timer > 0)
     heartbeat_render_icon(2, 100, 208);  
   else
     heartbeat_render_icon(0, 100, 210);
