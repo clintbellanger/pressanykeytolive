@@ -1,8 +1,8 @@
 function resizeCanvas() {
   if (!STRETCH_TO_SCREEN) {
     
-	can.width = 160 * SCALE;
-	can.height = 120 * SCALE;
+	can.width = 320 * SCALE;
+	can.height = 240 * SCALE;
 	redraw = true;
 	
 	return;
@@ -14,13 +14,13 @@ function resizeCanvas() {
   if (window.innerWidth * (3/4) > window.innerHeight) {  
     can.height = window.innerHeight;
     can.width = can.height * aspect_ratio;
-    SCALE = can.height / 120;
+    SCALE = can.height / 240;
   }
   // the screen is taller than 4:3
   else {
     can.width = window.innerWidth;
 	can.height = can.width / aspect_ratio;
-	SCALE = can.width / 160;
+	SCALE = can.width / 320;
   }
   redraw = true;
   setNearestNeighbor();
@@ -32,3 +32,4 @@ function setNearestNeighbor() {
   ctx.mozImageSmoothingEnabled = false;
   ctx.oImageSmoothingEnabled = false;  
 }
+

@@ -30,7 +30,7 @@ function init() {
   if (can.getContext) {
     ctx = can.getContext("2d");
   }
-
+    
   resizeCanvas();
 
   if (window.addEventListener) {
