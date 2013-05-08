@@ -1,0 +1,15 @@
+First World Game Dev problems: I have a beautifully tragic game idea, but I haven't had enough personal tragedy in my own life to be taken seriously.
+
+It would be a short art game. The length of a song, tops
+
+Press Any key To Live. The interaction is you just press any key to keep a heartbeat rhythm. If you mess up the rhythm the character dies before the story finishes.
+
+So you get the rhythm right and watch this story unfold. It's some sad/tragic story that ends with the main character on their death bed in an empty hospital room.
+
+Now you've put the player in a predicament, if the story was good enough. Nothing is changing in the story any more, you just hear the heartbeat monitor when you press a key. The main character isn't moving.
+
+Music finishes, this is the end of the game. The only thing the player can do is stop playing by stop beating the heart and letting the character flatline.
+
+but if I made such a game, people will ask: who was the inspiration for this game? Did you lose someone in this way?
+
+And no, I haven't. Just making stuff up.
