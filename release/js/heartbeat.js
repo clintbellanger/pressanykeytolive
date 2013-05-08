@@ -30,8 +30,9 @@ heartbeat.first_success = false;
 heartbeat.failure_count = 0;
 
 // If there was a success this pass, set to true.
-// If the pass ends without a success (missed beat), add one failure.
+// If the pass ends without a success (missed beat) or a failure, add one failure.
 heartbeat.successful_pass = false;
+heartbeat.failed_pass = false;
 
 
 //---- Initialize ---------------------
@@ -76,6 +77,7 @@ function heartbeat_logic_anykey() {
     // otherwise
     else {
       heartbeat.shake_timer = 12;
+	  heartbeat.failed_pass = true;
 	  
 	  // if the player already knows how to play, deduct points
 	  if (heartbeat.first_success) {
@@ -95,12 +97,13 @@ function heartbeat_logic_animate() {
   if (heartbeat.cursor_x == 80) {
     heartbeat.cursor_x = 220;
 	
-	// didn't get a correct heartbeat this turn
-	if (heartbeat.first_success == true && heartbeat.successful_pass == false) {
+	// did not beat at all this turn
+	if (heartbeat.first_success == true && heartbeat.successful_pass == false && heartbeat.failed_pass == false) {
 	  heartbeat.failure_count++;	
 	}
 	
 	heartbeat.successful_pass = false;
+	heartbeat.failed_pass = false;
   }
 
   // handle shaking the heartbeat due to failure
