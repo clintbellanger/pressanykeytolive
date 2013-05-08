@@ -18,7 +18,6 @@ input_lock.anykey = false;
 //---- Input Functions ----------------------------------------------
 
 function handleKeyDown(evt) {
-
   evt.preventDefault();
   pressing.anykey = true;
   
