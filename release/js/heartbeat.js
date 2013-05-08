@@ -54,7 +54,7 @@ function heartbeat_logic() {
   heartbeat_logic_anykey();
   
   // check for failure
-  if (heartbeat.failure_count >= 3) gamestate = STATE_GAMEOVER;
+  if (heartbeat.failure_count >= 4) gamestate = STATE_GAMEOVER;
 }
 
 function heartbeat_logic_anykey() {
@@ -64,20 +64,27 @@ function heartbeat_logic_anykey() {
     
 	input_lock.anykey = true;
 	
-	// if the cursor overlaps the heart AT ALL, success
-	if (heartbeat.cursor_x < 120 && heartbeat.cursor_x > 80 && !heartbeat.successful_pass) {
+	// SUCCESS if the cursor overlaps the heart at all
+	if (heartbeat.cursor_x < 140 && heartbeat.cursor_x > 100 && !heartbeat.successful_pass) {
 	
-	  heartbeat.first_success = true;
-	  heartbeat.beat_timer = 5;
+	  if (!heartbeat.first_success) {
+	    heartbeat.first_success = true;
+	    gamestate = STATE_PLAY;
+	  }
+	  heartbeat.beat_timer = 8;
 	  heartbeat.successful_pass = true;
 	  
 	  if (heartbeat.failure_count > 0) heartbeat.failure_count--;
+	  
+	  sounds_play(SFX_BEAT);
 	  
 	}
     // otherwise
     else {
       heartbeat.shake_timer = 12;
 	  heartbeat.failed_pass = true;
+	  
+	  sounds_play(SFX_MISS);
 	  
 	  // if the player already knows how to play, deduct points
 	  if (heartbeat.first_success) {
@@ -134,16 +141,16 @@ function heartbeat_render() {
   
   // show heart
   if (heartbeat.beat_timer > 0)
-    heartbeat_render_icon(2, 100, 208);  
+    heartbeat_render_icon(2, 120, 208);  
   else
-    heartbeat_render_icon(0, 100, 210);
+    heartbeat_render_icon(0, 120, 210);
   
   // show cursor
   heartbeat_render_icon(1, heartbeat.cursor_x, 210);
   
   // lazy/fast clip of cursor
-  ctx.fillRect(80*SCALE,200*SCALE,20*SCALE,40*SCALE);
-  ctx.fillRect(220*SCALE,200*SCALE,20*SCALE,40*SCALE);
+  ctx.fillRect(70*SCALE,200*SCALE,30*SCALE,40*SCALE);
+  ctx.fillRect(220*SCALE,200*SCALE,30*SCALE,40*SCALE);
 
 }
 

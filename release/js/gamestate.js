@@ -3,14 +3,18 @@
  
  */
  
-var STATE_PLAY = 0;
-var STATE_GAMEOVER = 1;
- 
-var gamestate = STATE_PLAY;
+var STATE_TITLE = 0;
+var STATE_PLAY = 1;
+var STATE_ENDING = 2;
+
+var gamestate = STATE_TITLE;
 
 function gamestate_logic() {
 
   switch(gamestate) {
+    case STATE_TITLE:
+	  heartbeat_logic();
+	  break;
     case STATE_PLAY:
 	  heartbeat_logic();
 	  break;
@@ -22,6 +26,9 @@ function gamestate_logic() {
 function gamestate_render() {
 
   switch(gamestate) {
+    case STATE_TITLE:
+	  heartbeat_render();
+	  break;
     case STATE_PLAY:
 	  heartbeat_render();
 	  break;
