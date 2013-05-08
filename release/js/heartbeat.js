@@ -21,6 +21,21 @@ heartbeat.offset_y = 0;
 heartbeat.shake_timer = 0;
 heartbeat.beat_timer = 0;
 
+// The game doesn't begin until the player gets the first successful press.
+heartbeat.first_success = false;
+
+// Failure happens when beating the heart incorrectly or missing a beat entirely
+// A success erases one failure.
+// Accumulating three failures is game over.
+heartbeat.failure_count = 0;
+
+// If there was a success this pass, set to true.
+// If the pass ends without a success (missed beat), add one failure.
+heartbeat.successful_pass = false;
+
+
+//---- Initialize ---------------------
+
 function heartbeat_init() {
   heartbeat.img.src = "images/heart.png";
   heartbeat.img.onload = function() {heartbeat_onload();};
@@ -30,31 +45,67 @@ function heartbeat_onload() {
   heartbeat.img_loaded = true;
 }
 
+//---- Logic --------------------------
+
 function heartbeat_logic() {
-  heartbeat.success = false;
   
-  // animate cursor  
-  heartbeat.cursor_x -= 2;
-  if (heartbeat.cursor_x == 80) heartbeat.cursor_x = 220;
+  heartbeat_logic_animate();
+  heartbeat_logic_anykey();
   
+  // check for failure
+  if (heartbeat.failure_count >= 3) gamestate = STATE_GAMEOVER;
+}
+
+function heartbeat_logic_anykey() {
+
   // check for input
   if (pressing.anykey && !input_lock.anykey) {
     
 	input_lock.anykey = true;
 	
 	// if the cursor overlaps the heart AT ALL, success
-	if (heartbeat.cursor_x < 120 && heartbeat.cursor_x > 80) {
+	if (heartbeat.cursor_x < 120 && heartbeat.cursor_x > 80 && !heartbeat.successful_pass) {
+	
+	  heartbeat.first_success = true;
 	  heartbeat.beat_timer = 5;
+	  heartbeat.successful_pass = true;
+	  
+	  if (heartbeat.failure_count > 0) heartbeat.failure_count--;
+	  
 	}
     // otherwise
     else {
       heartbeat.shake_timer = 12;
+	  
+	  // if the player already knows how to play, deduct points
+	  if (heartbeat.first_success) {
+	    heartbeat.failure_count++;
+	  }
     }
   }
   
+}
+
+function heartbeat_logic_animate() {
+
+  // animate cursor  
+  heartbeat.cursor_x -= 2;
+  
+  // handle cursor wrap
+  if (heartbeat.cursor_x == 80) {
+    heartbeat.cursor_x = 220;
+	
+	// didn't get a correct heartbeat this turn
+	if (heartbeat.first_success == true && heartbeat.successful_pass == false) {
+	  heartbeat.failure_count++;	
+	}
+	
+	heartbeat.successful_pass = false;
+  }
+
   // handle shaking the heartbeat due to failure
   if (heartbeat.shake_timer > 0) {
-    heartbeat.shake_timer --;
+    heartbeat.shake_timer--;
 	heartbeat.offset_x = Math.floor(Math.random() * 5) - 2;
 	heartbeat.offset_y = Math.floor(Math.random() * 5) - 2;
   }
@@ -67,7 +118,10 @@ function heartbeat_logic() {
   if (heartbeat.beat_timer > 0) {
     heartbeat.beat_timer --;
   }
+  
 }
+
+//---- Render -------------------------
 
 function heartbeat_render() {
 
