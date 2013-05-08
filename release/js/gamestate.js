@@ -5,7 +5,7 @@
  
 var STATE_TITLE = 0;
 var STATE_PLAY = 1;
-var STATE_ENDING = 2;
+var STATE_GAMEOVER = 2;
 
 var gamestate = STATE_TITLE;
 
