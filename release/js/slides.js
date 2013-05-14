@@ -2,7 +2,8 @@
  * Slide managing and drawing
  */
 
-var SLIDE_COUNT = 24;
+var SLIDE_COUNT = 27;
+var SLIDE_FINAL = 23;
  
 var slides = new Object();
 
@@ -42,6 +43,11 @@ function slides_init() {
   slides.img[21].src = "images/slides/img21.jpg";
   slides.img[22].src = "images/slides/img22.jpg";
   slides.img[23].src = "images/slides/img23.jpg";
+  
+  slides.img[24].src = "images/slides/title.jpg";
+  slides.img[25].src = "images/slides/obit_child.jpg";
+  slides.img[26].src = "images/slides/obit_adult.jpg";
+  
 
 }
 
@@ -54,8 +60,11 @@ function slides_logic() {
   // update the slide when the cursor is precisely over
   // the heart location
   if (heartbeat.cursor_x == 120) {
-    slides.current++;
-	slides.redraw = true;
+  
+    if (slides.current < SLIDE_FINAL) {
+      slides.current++;
+	  slides.redraw = true;
+	}
   }
 }
 
@@ -66,8 +75,13 @@ function slides_render() {
   
   slides.redraw = false;
   
+  slides_render_img(slides.current);
+  
+}
+
+function slides_render_img(img_id) {
   ctx.drawImage(
-    slides.img[slides.current],
+    slides.img[img_id],
     0,
     0,
     320 * PRESCALE,
