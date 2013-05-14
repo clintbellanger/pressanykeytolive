@@ -117,7 +117,8 @@ function heartbeat_logic_animate() {
 	
 	// did not beat at all this turn
 	if (heartbeat.first_success == true && heartbeat.successful_pass == false && heartbeat.failed_pass == false) {
-	  heartbeat.failure_count++;	
+	  heartbeat.failure_count++;
+	  heartbeat.shake_timer = 12;
 	}
 	
 	heartbeat.successful_pass = false;
