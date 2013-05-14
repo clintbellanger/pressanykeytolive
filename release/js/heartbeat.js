@@ -49,6 +49,9 @@ function heartbeat_onload() {
 //---- Logic --------------------------
 
 function heartbeat_logic() {
+
+  // don't start game until assets are done loading
+  if (slides.load_counter < SLIDE_COUNT) return;
   
   heartbeat_logic_animate();
   heartbeat_logic_anykey();
@@ -70,6 +73,13 @@ function heartbeat_logic_anykey() {
 	  if (!heartbeat.first_success) {
 	    heartbeat.first_success = true;
 	    gamestate = STATE_PLAY;
+
+		// help the starting pass
+        if (heartbeat.cursor_x < 120) {
+		  slides.current = 0;
+		  slides.redraw = true;
+		}
+
 	  }
 	  heartbeat.beat_timer = 8;
 	  heartbeat.successful_pass = true;
@@ -77,6 +87,7 @@ function heartbeat_logic_anykey() {
 	  if (heartbeat.failure_count > 0) heartbeat.failure_count--;
 	  
 	  sounds_play(SFX_BEAT);
+	  
 	  
 	}
     // otherwise
@@ -98,7 +109,7 @@ function heartbeat_logic_anykey() {
 function heartbeat_logic_animate() {
 
   // animate cursor  
-  heartbeat.cursor_x -= 2;
+  heartbeat.cursor_x -= 1;
   
   // handle cursor wrap
   if (heartbeat.cursor_x == 80) {

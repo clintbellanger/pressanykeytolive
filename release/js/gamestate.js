@@ -17,6 +17,7 @@ function gamestate_logic() {
 	  break;
     case STATE_PLAY:
 	  heartbeat_logic();
+	  slides_logic();
 	  break;
 	case STATE_GAMEOVER:
 	  break;
@@ -31,6 +32,7 @@ function gamestate_render() {
 	  break;
     case STATE_PLAY:
 	  heartbeat_render();
+	  slides_render();
 	  break;
 	case STATE_GAMEOVER:
 	  break;

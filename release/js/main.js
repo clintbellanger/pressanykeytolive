@@ -45,6 +45,7 @@ function init() {
   }
   
   // initialize all game units
+  slides_init();
   heartbeat_init();
   sounds_init();
 
