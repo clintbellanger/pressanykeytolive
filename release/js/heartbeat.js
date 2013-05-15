@@ -57,7 +57,13 @@ function heartbeat_logic() {
   heartbeat_logic_anykey();
   
   // check for failure
-  if (heartbeat.failure_count >= 4) gamestate = STATE_GAMEOVER;
+  if (heartbeat.failure_count >= 4) {
+    gamestate = STATE_GAMEOVER;
+	
+	if (slides.current == SLIDE_FINAL) {
+	  sounds_play(SFX_FLATLINE);
+	}
+  }
 }
 
 function heartbeat_logic_anykey() {
@@ -86,7 +92,12 @@ function heartbeat_logic_anykey() {
 	  
 	  if (heartbeat.failure_count > 0) heartbeat.failure_count--;
 	  
-	  sounds_play(SFX_BEAT);
+	  if (slides.current < SLIDE_FINAL) {
+	    sounds_play(SFX_BEAT);
+	  }
+	  else {
+	    sounds_play(SFX_MONITOR);
+	  }
 	  
 	  
 	}
@@ -148,7 +159,7 @@ function heartbeat_logic_animate() {
 function heartbeat_render() {
 
   // clear heartbeat background
-  ctx.fillStyle = "#140c1c";
+  ctx.fillStyle = "#000000";
   ctx.fillRect(100*SCALE,200*SCALE,120*SCALE,40*SCALE);
   
   // show heart

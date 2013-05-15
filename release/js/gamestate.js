@@ -52,7 +52,7 @@ function gamestate_render() {
 
 function gamestate_show_title() {
   if (!display_title && slides.load_counter == SLIDE_COUNT) {
-    slides_render_img(24);	
+    slides_render_img(SLIDE_TITLE);	
     display_title = true;
   }
 }
@@ -61,11 +61,14 @@ function gamestate_show_ending() {
   if (!display_ending) {
     display_ending = true;
     
-	if (slides.current < 18) {
-	  slides_render_img(25);
+	if (slides.current == SLIDE_FINAL) {
+	  slides_render_img(SLIDE_ENDING);
+	}	
+	else if (slides.current < SLIDE_ADULT) {
+	  slides_render_img(SLIDE_OBIT1);
 	}
 	else {
-	  slides_render_img(26);
+	  slides_render_img(SLIDE_OBIT2);
 	}
   }
 }

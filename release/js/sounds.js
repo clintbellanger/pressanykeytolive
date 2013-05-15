@@ -13,8 +13,8 @@ sounds.fx = new Array();
 function sounds_init() {
   sounds.fx[SFX_BEAT] = new Audio("sounds/heartbeat.wav");
   sounds.fx[SFX_MISS] = new Audio("sounds/miss.wav");
-  //sounds.fx[SFX_MONITOR] = new Audio("sounds/monitor.wav");
-  //sounds.fx[SFX_FLATLINE] = new Audio("sounds/flatline.wav");
+  sounds.fx[SFX_MONITOR] = new Audio("sounds/monitor.wav");
+  sounds.fx[SFX_FLATLINE] = new Audio("sounds/flatline.wav");
  
 }
 
