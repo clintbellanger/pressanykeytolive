@@ -22,7 +22,11 @@ function resizeCanvas() {
 	can.height = can.width / aspect_ratio;
 	SCALE = can.width / 320;
   }
-  redraw = true;
+  
+  slides.redraw = true;
+  display_title = false;
+  display_ending = false;  
+  
   setNearestNeighbor();
 }
 
