@@ -79,6 +79,11 @@ function slides_init() {
 
 function slides_onload() {
   slides.load_counter++;
+
+  var load_percent = (slides.load_counter * 100) / SLIDE_COUNT;  
+  if (load_percent < 100) {
+    loadbar_render(load_percent);
+  }
 }
 
 function slides_logic() {
