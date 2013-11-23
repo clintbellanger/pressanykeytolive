@@ -26,6 +26,7 @@ function gamestate_logic() {
 	  break;
 	  
 	case STATE_GAMEOVER:
+      charity.logic();
 	  break;
   } 
 }
@@ -45,7 +46,12 @@ function gamestate_render() {
 	  break;
 
     case STATE_GAMEOVER:
-	  gamestate_show_ending();	
+	  gamestate_show_ending();
+      
+      if (slides.current == SLIDE_FINAL) {
+        charity.render();
+      }
+
 	  break;
   }
 }
@@ -63,6 +69,7 @@ function gamestate_show_ending() {
     
 	if (slides.current == SLIDE_FINAL) {
 	  slides_render_img(SLIDE_ENDING);
+      
 	}	
 	else if (slides.current < SLIDE_ADULT) {
 	  slides_render_img(SLIDE_OBIT1);

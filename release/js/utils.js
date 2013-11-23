@@ -37,3 +37,10 @@ function setNearestNeighbor() {
   ctx.oImageSmoothingEnabled = false;  
 }
 
+function isWithin(point, rect) {
+  if (point.x < rect.x1) return false;
+  if (point.x > rect.x2) return false;
+  if (point.y < rect.y1) return false;
+  if (point.y > rect.y2) return false;
+  return true;
+}

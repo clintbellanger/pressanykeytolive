@@ -48,6 +48,7 @@ function init() {
   slides_init();
   heartbeat_init();
   sounds_init();
+  charity.init();
 
 }
 
