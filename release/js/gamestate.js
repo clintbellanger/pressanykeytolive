@@ -26,7 +26,10 @@ function gamestate_logic() {
 	  break;
 	  
 	case STATE_GAMEOVER:
-      charity.logic();
+
+      if (slides.current == SLIDE_FINAL) {
+        charity.logic();
+      }
 	  break;
   } 
 }
